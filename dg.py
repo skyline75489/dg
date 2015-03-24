@@ -19,9 +19,10 @@ def read_json(file_path):
 def generate_dir_with_json(json, dir_path):
     current_path = pathlib.Path(dir_path)
     for i in json:
-        if isinstance(i, str):
+        if isinstance(i, str) or isinstance(i, unicode):
             output_path = current_path.joinpath(i)
-            output_path.open('w')
+            with output_path.open('w') as f:
+                f.write(i)
         elif isinstance(i, dict):
             for key in i:
                 output_path = current_path.joinpath(key)
